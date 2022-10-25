@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.liushengpei.dao.FamilyMemberDao">
+
+    <resultMap id="FamilyMember" type="com.liushengpei.pojo.FamilyMember">
+        <!--        主键id-->
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <!--        姓名-->
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <!--        年龄-->
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <!--        性别（1：男，0：女）-->
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <!--        家庭住址-->
+        <result column="home_address" jdbcType="VARCHAR" property="homeAddress"/>
+        <!--        出生日期-->
+        <result column="date_of_birth" jdbcType="DATE" property="dateOfBirth"/>
+        <!--        死亡日期-->
+        <result column="date_of_death" jdbcType="DATE" property="dateOfDeath"/>
+        <!--        是否已婚（1：是，0：否）-->
+        <result column="married_of_not" jdbcType="INTEGER" property="marriedOfNot"/>
+        <!--        学历(0：未上学，1：幼儿园，2：小学，3：初中，4：普高，5：中专，6：大学，7：大专，8：研究生，9：博士，10：硕士)-->
+        <result column="education" jdbcType="INTEGER" property="education"/>
+        <!--        工作-->
+        <result column="work" jdbcType="VARCHAR" property="work"/>
+        <!--        工作地址-->
+        <result column="work_address" jdbcType="VARCHAR" property="workAddress"/>
+        <!--        联系电话-->
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <!--        邮箱-->
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <!--        创建时间-->
+        <result column="create_time" jdbcType="DATE" property="createTime"/>
+        <!--        更新时间-->
+        <result column="update_time" jdbcType="DATE" property="updateTime"/>
+        <!--        创建人-->
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <!--        更新人-->
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <!--        删除标识（0：未删除，1：已删除）-->
+        <result column="del_flag" jdbcType="INTEGER" property="delFlag"/>
+    </resultMap>
+    <!--查询所有-->
+    <select id="selectAll" resultType="list" resultMap="FamilyMember">
+        SELECT *
+        FROM family_member
+        WHERE del_flag = 0
+    </select>
+
+    <!--    添加家族成员-->
+    <insert id="addMember" parameterType="com.liushengpei.pojo.FamilyMember">
+        INSERT INTO family_member(id, name, age, sex, home_address, date_of_birth, date_of_death, married_of_not,
+                                  education, work, work_address, phone, email, create_time, update_time, create_user,
+                                  update_user, del_flag)
+        VALUES (#{id}, #{name}, #{age}, #{sex}, #{homeAddress}, #{dateOfBirth}, #{dateOfDeath}, #{marriedOfNot},
+                #{education}, #{work},
+                #{workAddress}, #{phone}, #{email}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser}, 0)
+    </insert>
+</mapper>
